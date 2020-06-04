@@ -15,15 +15,15 @@ const refreshToken = async (req, res) => {
   try {
     refreshTokenData = verify(refresh_token, process.env.JWT_KEY);
   } catch (e) {
-    res.status(401).json({ message: `Invalid token!` });
+    throw res.status(401).json({ message: `Invalid token!` });
   }
 
   if (!refreshTokenData || !refreshTokenData.userId) {
-    res.status(401).json({ message: `Invalid refresh token!` });
+    throw res.status(401).json({ message: `Invalid refresh token!` });
   }
   const user = await getUser({ id: { _eq: refreshTokenData.userId } });
   if (!user) {
-    res.status(401).json({ message: `The refresh token user is not valid anymore!` });
+    throw res.status(401).json({ message: `The refresh token user is not valid anymore!` });
   }
   const userToken = loginUserResponse(user);
 
