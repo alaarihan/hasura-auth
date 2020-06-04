@@ -8,14 +8,14 @@ const refreshToken = async (req, res) => {
   const cookies = cookie.parse(req.headers.cookie)
   const refresh_token = cookies.refresh_token;
   if (!refresh_token) {
-    res.status(401).json({ message: "You have to login!" });
+    res.status(401).send("You have to login!");
   }
 
   let refreshTokenData;
   try {
     refreshTokenData = verify(refresh_token, process.env.JWT_KEY);
   } catch (e) {
-    res.status(401).jsom({ message: `Invalid token!` });
+    res.status(401).json({ message: `Invalid token!` });
   }
 
   if (!refreshTokenData || !refreshTokenData.userId) {
@@ -23,7 +23,7 @@ const refreshToken = async (req, res) => {
   }
   const user = await getUser({ id: { _eq: refreshTokenData.userId } });
   if (!user) {
-    res.status(401).send({ message: `The refresh token user is not valid anymore!` });
+    res.status(401).json({ message: `The refresh token user is not valid anymore!` });
   }
   const userToken = loginUserResponse(user);
 
