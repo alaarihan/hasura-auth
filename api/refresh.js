@@ -3,13 +3,12 @@ const cookie = require('cookie')
 const { getUser, loginUserResponse } = require("./lib/common");
 const refreshToken = async (req, res) => {
   if(!req.headers || !req.headers.cookie){
-    res.status(401).json({ message: "You have to login!" });
+    throw res.status(401).json({ message: "You have to login!" });
   }
   const cookies = req.headers.cookie ? cookie.parse(req.headers.cookie) : {}
   const refresh_token = cookies.refresh_token;
   if (!refresh_token) {
-    res.status(401)
-    throw res.send({ message: "You have to login!" });
+    throw res.status(401).json({ message: "You have to login!" });
   }
 
   let refreshTokenData;
