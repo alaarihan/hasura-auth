@@ -21,7 +21,7 @@ const refreshToken = async (req, res) => {
   if (!refreshTokenData || !refreshTokenData.userId) {
     throw res.status(401).send({ message: `Invalid refresh token!` });
   }
-  const user = await getUser({ id: { _eq: userId } });
+  const user = await getUser({ id: { _eq: refreshTokenData.userId } });
   if (!user) {
     throw res.status(401).send({ message: `The refresh token user is not valid anymore!` });
   }
