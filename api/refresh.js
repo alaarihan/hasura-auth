@@ -9,7 +9,7 @@ const refreshToken = async (req, res) => {
   const refresh_token = cookies.refresh_token;
   if (!refresh_token) {
     res.status(401)
-    throw res.json({ message: "You have to login!" });
+    throw res.send({ message: "You have to login!" });
   }
 
   let refreshTokenData;
