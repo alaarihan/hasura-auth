@@ -10,14 +10,14 @@ const login = async (req, res) => {
 
   const user = await getUser({ email: { _eq: email } });
   if (!user) {
-    throw res
+    return res
       .status(401)
       .send({ message: `No account found for this email: ${email}` });
   }
 
   const passwordValid = await compare(password, user.password);
   if (!passwordValid) {
-    throw res.status(401).send({ message: "Invalid email or password!" });
+    return res.status(401).send({ message: "Invalid email or password!" });
   }
 
   const userToken = loginUserResponse(user);
