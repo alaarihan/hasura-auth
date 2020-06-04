@@ -1,11 +1,11 @@
 const { verify } = require("jsonwebtoken");
 const cookie = require('cookie')
 const refreshToken = async (req, res) => {
-  console.log(req.headers)
-  if(!req.cookies){
+  if(!req.headers || !req.headers.cookie){
     throw res.status(401).json({ message: "You have to login!" });
   }
-  const refresh_token = req.cookies.refresh_token;
+  const cookies = cookie.parse(req.headers.cookie)
+  const refresh_token = cookies.refresh_token;
   if (!refresh_token) {
     throw res.status(401).json({ message: "You have to login!" });
   }
