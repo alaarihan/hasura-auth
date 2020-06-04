@@ -1,5 +1,5 @@
 const { compare } = require("bcrypt");
-const { getUser, loginUserResponse } = "./common";
+const { getUser, loginUserResponse } = require("./lib/common");
 
 const login = async (req, res) => {
   if (req.method !== 'POST') {
