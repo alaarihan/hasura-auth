@@ -1,4 +1,5 @@
 const { compare } = require("bcrypt");
+const cookie = require('cookie')
 const { getUser, loginUserResponse } = require("./lib/common");
 
 const login = async (req, res) => {
@@ -22,10 +23,10 @@ const login = async (req, res) => {
   const userToken = loginUserResponse(user);
 
   if (userToken && userToken.refresh_token) {
-    res.cookie("refresh_token", userToken.refresh_token, {
+    res.setHeader('Set-Cookie', cookie.serialize('refresh_token', String(userToken.refresh_token), {
       httpOnly: true,
-      maxAge: 43200 * 60 * 1000,
-    });
+      maxAge: 60 * 60 * 24 * 30 // 1 month
+    }));
   }
   // success
   return res.json({
