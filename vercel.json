@@ -2,7 +2,7 @@
   "name": "social-like-auth",
   "functions": {
     "api/*.js": {
-      "excludeFiles": "lib/*"
+      "excludeFiles": "api/lib/*.js"
     }
   }
 }
