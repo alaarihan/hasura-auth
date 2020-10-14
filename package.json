@@ -1,6 +1,6 @@
 {
-  "name": "social-hits-auth",
-  "description": "Auth for Hits Campaigns App",
+  "name": "social-like-auth",
+  "description": "Auth for Like Campaigns App",
   "scripts": {
     "lint": "eslint ."
   },
